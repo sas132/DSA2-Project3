@@ -16,8 +16,11 @@ int main(int argc, char **argv)
 				{1, 2, 3, 4, -1}};
 
 	int visited[5] = {-1, -1, -1, -1, -1};
-	City tempCity(5, distances);
-	tempCity.goOnTour(0, visited, 0);
+	City* tempCity = new City(5, distances);
+	tempCity->goOnTour(0, visited, 0);
+	Tour* tempTour = tempCity->getBest();
+
+	std::cout << tempTour->getDistance() << std::endl;
 	
 	return 0;
 }

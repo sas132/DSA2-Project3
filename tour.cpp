@@ -19,6 +19,11 @@ Tour::Tour(int newDistance, int newPath[], int numCities)
 	}
 }
 
+Tour::~Tour()
+{
+
+}
+
 void Tour::setDistance(int newDistance)
 {
 	distance = newDistance;
