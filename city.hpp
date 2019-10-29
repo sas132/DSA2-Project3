@@ -1,6 +1,7 @@
 #ifndef CITY
 #define CITY
 
+#include <time.h>
 #include <iostream>
 #include "tour.hpp"
 
