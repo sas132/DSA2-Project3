@@ -7,18 +7,18 @@
 class City
 {
 private:
-	int cityDistances[20][20];
+	double cityDistances[20][20];
 	int numCities;
-	int smallestCity;
+	double smallestTour;
 	Tour* bestTour; //elite 1
 	Tour* permedTour; //elite 2
 
 public:
 	City(int newCities);
-	City(int newCities, int cities[][20]);
-	void goOnTour(int citiesVisited, int visited[], int distance);
+	City(int newCities, double cities[][20]);
+	Tour* goOnTour(int citiesVisited, int visited[], double distance, Tour* currentBest);
 	Tour* getBest();
 	//Tour* getPermed();
-	void print(int visited[], int distance);
+	void print(int visited[], double distance);
 };
 #endif

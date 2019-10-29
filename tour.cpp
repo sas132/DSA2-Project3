@@ -1,4 +1,5 @@
 #include "tour.hpp"
+#include <iostream>
 
 Tour::Tour()
 {
@@ -9,10 +10,9 @@ Tour::Tour()
 	}
 }
 
-Tour::Tour(int newDistance, int newPath[], int numCities)
+Tour::Tour(double newDistance, int newPath[], int numCities)
 {
 	distance = newDistance;
-
 	for(int i = 0; i < numCities; i++)
 	{
 		path[i] = newPath[i];
@@ -24,7 +24,7 @@ Tour::~Tour()
 
 }
 
-void Tour::setDistance(int newDistance)
+void Tour::setDistance(double newDistance)
 {
 	distance = newDistance;
 }
@@ -37,7 +37,7 @@ void Tour::setPath(int newPath[], int numCities)
 	}
 }
 
-int Tour::getDistance()
+double Tour::getDistance()
 {
 	return distance;
 }

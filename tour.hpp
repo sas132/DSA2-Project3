@@ -4,16 +4,16 @@
 class Tour
 {
 private:
-	int distance;
+	double distance;
 	int path[];
 
 public:
 	Tour();
-	Tour(int newDistance, int newPath[], int numCities);
+	Tour(double newDistance, int newPath[], int numCities);
 	~Tour();
-	void setDistance(int newDistance);
+	void setDistance(double newDistance);
 	void setPath(int newPath[], int numCities);
-	int getDistance();
+	double getDistance();
 	int getCity(int index);
 };
 #endif

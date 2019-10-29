@@ -5,7 +5,7 @@
 City::City(int newCities)
 {
 	numCities = newCities;
-	smallestCity = 1000; //ubsurdly large number for purposes of testing
+	smallestTour = 1000.0; //ubsurdly large number for purposes of testing
 	bestTour = nullptr;
 
 	for(int i = 0; i < numCities; i++)
@@ -17,14 +17,16 @@ City::City(int newCities)
 	}
 }
 
-City::City(int newCities, int cities[][20])
+City::City(int newCities, double cities[][20])
 {
 	numCities = newCities;
-	smallestCity = 1000; //ubsurdly large number for purpose of testing	
+	smallestTour = 1000.0; //ubsurdly large number for purpose of testing	
 	bestTour = nullptr;
+	int visited[newCities];
 
 	for(int i = 0; i < numCities; i++)
 	{
+		visited[i] = -1;
 		for(int j = 0; j < numCities; j++)
 		{
 			if(i == j)
@@ -37,16 +39,17 @@ City::City(int newCities, int cities[][20])
 			}
 		}
 	}
+	bestTour = goOnTour(0, visited, 0.0, nullptr);
 }
 
-void City::goOnTour(int citiesVisited, int visited[], int distance)
+Tour* City::goOnTour(int citiesVisited, int visited[], double distance, Tour* currentBest)
 {
 	if(citiesVisited == 0)
 	{
 		for(int i = 0; i < numCities; i++)
 		{
 			visited[0] = i;
-			goOnTour(1, visited, 0);
+			currentBest =  goOnTour(1, visited, 0, currentBest);
 		}
 	}
 	else if(citiesVisited > 0 && citiesVisited < numCities)
@@ -65,25 +68,35 @@ void City::goOnTour(int citiesVisited, int visited[], int distance)
 			if(cityHappened == false)
 			{
 				visited[citiesVisited] = m;
-				int newDistance = distance + cityDistances[visited[citiesVisited - 1]][m];
-				goOnTour(citiesVisited + 1, visited, newDistance);
+				double newDistance = distance + cityDistances[visited[citiesVisited - 1]][m];
+				currentBest = goOnTour(citiesVisited + 1, visited, newDistance, currentBest);
 			}
 		}
 	}
 	else
 	{
 		distance += cityDistances[visited[citiesVisited - 1]][visited[0]];
-		if(distance < smallestCity)
+		if(distance < smallestTour)
 		{
-			smallestCity = distance;
-			Tour* tempTour = new Tour(distance, visited, numCities);
-			bestTour = tempTour;
+			if(smallestTour == 1000.0)
+			{
+				Tour tempTourA(distance, visited, numCities);
+				currentBest = &tempTourA;
+				smallestTour = distance;
+			}
+			else if(smallestTour > distance && smallestTour != 1000.0)
+			{
+				Tour tempTourB(distance, visited, numCities);
+				currentBest = &tempTourB;
+				smallestTour = distance;
+			}
 		}
 		print(visited, distance);
 	}
+	return currentBest;
 }
 
-void City::print(int visited[], int distance)
+void City::print(int visited[], double distance)
 {
 	std::cout << "City order: ";
 	for(int i = 0; i < numCities; i++)
