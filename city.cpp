@@ -27,6 +27,7 @@ City::City(int newCities, double cities[][20])
 
 	for(int i = 0; i < numCities; i++)
 	{
+		//std::cout << "City " << i << std::endl;
 		visited[i] = -1;
 		for(int j = 0; j < numCities; j++)
 		{
@@ -45,16 +46,14 @@ City::City(int newCities, double cities[][20])
 	Tour* current = goOnTour(0, visited, 0.0, nullptr);
 	clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &afterBrute);
 	int totalBruteTimeN = afterBrute.tv_nsec - beforeBrute.tv_nsec;
-	int totalBruteTimeS = 0;
+	int totalBruteTimeS = afterBrute.tv_sec - beforeBrute.tv_sec;
 
-	if(totalBruteTimeN / 1000000000 > 0)
+	/*if(totalBruteTimeN / 1000000000 > 0)
 	{
 		std::cout << "yes\n\n";
 		totalBruteTimeS = totalBruteTimeN / 1000000000;
 		totalBruteTimeN = totalBruteTimeN - (totalBruteTimeS * 1000000000);
-	}
-	
-	//print(visited, distance);
+	}*/
 	
 	int best[numCities];
 	for(int j = 0; j < numCities; j++)
@@ -63,10 +62,9 @@ City::City(int newCities, double cities[][20])
 	}
 	
 	bestTour = new Tour(current->getDistance(), best, numCities);
-
-	print(best, bestTour->getDistance());
-	//std::cout << "brute time: " << totalBruteTimeN << "ns\n";
+	bestTour->print();
 	std::cout << "brute time: " << totalBruteTimeS << "s " << totalBruteTimeN << "ns\n";
+
 }
 
 Tour* City::goOnTour(int citiesVisited, int visited[], double distance, Tour* current)
@@ -74,8 +72,10 @@ Tour* City::goOnTour(int citiesVisited, int visited[], double distance, Tour* cu
 	int tempNum = numCities; //testing if just randomly using it works??
 	if(citiesVisited == 0)
 	{
+		//std::cout << "City " << i << std::endl;
 		for(int i = 0; i < numCities; i++)
 		{
+			std::cout << "City " << i << std::endl;
 			visited[0] = i;
 			current =  goOnTour(1, visited, 0, current);
 		}
@@ -119,7 +119,6 @@ Tour* City::goOnTour(int citiesVisited, int visited[], double distance, Tour* cu
 				smallestTour = distance;
 			}
 		}
-		//print(visited, distance);
 	}
 	return current;
 }

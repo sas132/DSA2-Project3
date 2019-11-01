@@ -37,15 +37,13 @@ void fileReader()
 
 int main(int argc, char **argv)
 {
-	std::cout << "Hello World\n";
 	fileReader();	
 	/*double distances[5][20] = {{-.1, .1, .2, .3, .4},
 			 	{.1, -.1, .2, .3, .4},
 				{.1, .2, -.1, .3, .4},
 				{.1, .2, .3, -.1, .4},
 				{.1, .2, .3, .4, -.1}};*/
-	std::cout << "Bonjour\n";
-	City* tempCity = new City(10, CITY_DISTANCES);
+	City* tempCity = new City(12, CITY_DISTANCES);
 	//std::cout << "any key to enter: ";
 	//std::cin >> continueGoing;
 
