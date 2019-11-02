@@ -10,11 +10,15 @@ Tour::Tour()
 	}
 }
 
-Tour::Tour(double newDistance, int newPath[], int newCities)
+Tour::Tour(double newDistance, int newPath[], int newCities, double city[][20])
 {
 	for(int i = 0; i < 20; i++)
 	{
 		path[i] = -1;
+		for(int j = 0; j < 20; j++)
+		{
+			distances[i][j] = city[i][j];
+		}
 	}
 
 	numCities = newCities;
@@ -96,4 +100,16 @@ void Tour::print()
 	}
 	std::cout << path[0];
 	std::cout << "\nDistance: " << distance << std::endl;
+}
+
+void Tour::updateDistance()
+{
+	distance = 0;
+
+	for(int i = 1; i < numCities; i++)
+	{
+		distance += distances[path[i - 1]][path[i]];
+	}
+
+	distance += distances[0][numCities - 1];
 }

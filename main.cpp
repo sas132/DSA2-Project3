@@ -2,16 +2,14 @@
 #include <string>
 #include <fstream>
 #include <stdlib.h>
-//#include "file_reader.hpp"
 #include "tour.hpp"
 #include "city.hpp"
+#include "permutation.hpp"
 
-//int NUM_CITIES;
 double CITY_DISTANCES[20][20];
 
 void fileReader()
 {
-	//char* line;
 	double current;
 
 	std::ifstream cityText;
@@ -28,7 +26,6 @@ void fileReader()
 			else
 			{
 				cityText >> current;
-				//std::cout << current << std::endl;
 				CITY_DISTANCES[i][j] = current;
 			}
 		}
@@ -37,17 +34,38 @@ void fileReader()
 
 int main(int argc, char **argv)
 {
-	fileReader();	
-	/*double distances[5][20] = {{-.1, .1, .2, .3, .4},
-			 	{.1, -.1, .2, .3, .4},
-				{.1, .2, -.1, .3, .4},
-				{.1, .2, .3, -.1, .4},
-				{.1, .2, .3, .4, -.1}};*/
-	City* tempCity = new City(12, CITY_DISTANCES);
-	//std::cout << "any key to enter: ";
-	//std::cin >> continueGoing;
+	fileReader();
+	if(argc == 4)
+	{
+		int cities = std::stoi(argv[1]);
+		double numPerm = std::stod(argv[3]);
+		int numGen = std::stoi(argv[2]);
+		int permCount = 0;
 
-	//fileReader();	
+		City* tempCity = new City(cities, CITY_DISTANCES);
+		Tour* best = tempCity->getBest();
+		Tour* second = best;
 
+		Permutation* perm = new Permutation(second, cities);
+
+		for(int i = 0; i < numGen; i++)
+		{
+			std::cout << "\n\nGeneration " << i + 1 << ":\n";
+			perm->crossover();
+			
+			if(permCount < numPerm * numGen)
+			{
+				i++;
+				std::cout << "\nGeneration " << i + 1 << ":\n";
+				std::cout << "Permuatation " << permCount + 1 << ":\n";
+				second = perm->perm();
+				permCount++;
+			}
+		}
+	}
+	else
+	{
+		std::cout << "Error.\n";
+	}
 	return 0;
 }

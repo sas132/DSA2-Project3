@@ -21,5 +21,6 @@ public:
 	Tour* getBest();
 	//Tour* getPermed();
 	void print(int visited[], double distance);
+	//void permutation();
 };
 #endif

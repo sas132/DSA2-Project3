@@ -22,12 +22,10 @@ City::City(int newCities, double cities[][20])
 {
 	numCities = newCities;
 	smallestTour = 1000.0; //ubsurdly large number for purpose of testing	
-	//bestTour = nullptr;
 	int visited[newCities];
 
 	for(int i = 0; i < numCities; i++)
 	{
-		//std::cout << "City " << i << std::endl;
 		visited[i] = -1;
 		for(int j = 0; j < numCities; j++)
 		{
@@ -48,23 +46,15 @@ City::City(int newCities, double cities[][20])
 	int totalBruteTimeN = afterBrute.tv_nsec - beforeBrute.tv_nsec;
 	int totalBruteTimeS = afterBrute.tv_sec - beforeBrute.tv_sec;
 
-	/*if(totalBruteTimeN / 1000000000 > 0)
-	{
-		std::cout << "yes\n\n";
-		totalBruteTimeS = totalBruteTimeN / 1000000000;
-		totalBruteTimeN = totalBruteTimeN - (totalBruteTimeS * 1000000000);
-	}*/
-	
 	int best[numCities];
 	for(int j = 0; j < numCities; j++)
 	{
 		best[j] = current->getCity(j);
 	}
 	
-	bestTour = new Tour(current->getDistance(), best, numCities);
+	bestTour = new Tour(current->getDistance(), best, numCities, cityDistances);
 	bestTour->print();
 	std::cout << "brute time: " << totalBruteTimeS << "s " << totalBruteTimeN << "ns\n";
-
 }
 
 Tour* City::goOnTour(int citiesVisited, int visited[], double distance, Tour* current)
@@ -72,10 +62,9 @@ Tour* City::goOnTour(int citiesVisited, int visited[], double distance, Tour* cu
 	int tempNum = numCities; //testing if just randomly using it works??
 	if(citiesVisited == 0)
 	{
-		//std::cout << "City " << i << std::endl;
 		for(int i = 0; i < numCities; i++)
 		{
-			std::cout << "City " << i << std::endl;
+			std::cout << "Loading city " << i << "/" << numCities << std::endl;
 			visited[0] = i;
 			current =  goOnTour(1, visited, 0, current);
 		}
@@ -108,13 +97,13 @@ Tour* City::goOnTour(int citiesVisited, int visited[], double distance, Tour* cu
 		{
 			if(smallestTour == 1000.0)
 			{
-				Tour tempTourA(distance, visited, numCities);
+				Tour tempTourA(distance, visited, numCities, cityDistances);
 				current = &tempTourA;
 				smallestTour = distance;
 			}
 			else if(smallestTour > distance && smallestTour != 1000.0)
 			{
-				Tour tempTourB(distance, visited, numCities);
+				Tour tempTourB(distance, visited, numCities, cityDistances);
 				current = &tempTourB;
 				smallestTour = distance;
 			}
