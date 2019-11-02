@@ -53,6 +53,7 @@ Tour* Permutation::perm()
 		current->updateDistance();
 	}
 	current->print();
+	return current;
 }
 
 void Permutation::crossover()

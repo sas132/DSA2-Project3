@@ -80,6 +80,7 @@ Tour* City::goOnTour(int citiesVisited, int visited[], double distance, Tour* cu
 		for(int m = 0; m < numCities; m++)
 		{
 			bool cityHappened = false;
+			std::cout << visited[citiesVisited - 1] << " " << m << std::endl;
 			for(int n = 0; n < numTours; n++)
 			{
 				if(visited[n] == m)
@@ -98,21 +99,20 @@ Tour* City::goOnTour(int citiesVisited, int visited[], double distance, Tour* cu
 	}
 	else
 	{
-		distance += cityDistances[visited[citiesVisited - 1]][visited[0]];
-		if(distance < smallestTour)
+		double tempDistance = distance + cityDistances[visited[citiesVisited - 1]][visited[0]];
+		if(tempDistance <= smallestTour)
 		{
-			if(smallestTour == 1000.0)
+			/*if(smallestTour == 1000.0)
 			{
 				Tour tempTourA(distance, visited, numTours, cityDistances);
 				current = &tempTourA;
 				smallestTour = distance;
-			}
-			else if(smallestTour > distance && smallestTour != 1000.0)
-			{
-				Tour tempTourB(distance, visited, numTours, cityDistances);
-				current = &tempTourB;
-				smallestTour = distance;
-			}
+			}*/
+
+			std::cout << distance << std::endl;
+			Tour tempTourB(distance, visited, numTours, cityDistances);
+			current = &tempTourB;
+			smallestTour = tempDistance;
 		}
 	}
 	return current;
