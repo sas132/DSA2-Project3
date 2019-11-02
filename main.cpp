@@ -35,14 +35,15 @@ void fileReader()
 int main(int argc, char **argv)
 {
 	fileReader();
-	if(argc == 4)
+	if(argc == 5)
 	{
 		int cities = std::stoi(argv[1]);
-		double numPerm = std::stod(argv[3]);
-		int numGen = std::stoi(argv[2]);
+		int tours = std::stoi(argv[2]);
+		double numPerm = std::stod(argv[4]);
+		int numGen = std::stoi(argv[3]);
 		int permCount = 0;
 
-		City* tempCity = new City(cities, CITY_DISTANCES);
+		City* tempCity = new City(cities, tours, CITY_DISTANCES);
 		Tour* best = tempCity->getBest();
 		Tour* second = best;
 
