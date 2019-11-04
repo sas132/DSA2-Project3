@@ -19,8 +19,5 @@ public:
 	City(int newCities, int newTours,  double cities[][20]);
 	Tour* goOnTour(int citiesVisited, int visited[], double distance, Tour* currentBest);
 	Tour* getBest();
-	//Tour* getPermed();
-	void print(int visited[], double distance);
-	//void permutation();
 };
 #endif

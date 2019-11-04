@@ -38,7 +38,6 @@ void Tour::setDistance(double newDistance)
 
 void Tour::setPath(int newPath[])
 {
-	int location = -1;
 	for(int i = 0; i < numCities; i++)
 	{
 		if(newPath[i] == numCities)
@@ -89,6 +88,7 @@ int Tour::fixPath(int newPath[])
 			return m;
 		}
 	}
+	return -1;
 }
 
 void Tour::print()

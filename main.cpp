@@ -47,7 +47,7 @@ int main(int argc, char **argv)
 		Tour* best = tempCity->getBest();
 		Tour* second = best;
 
-		Permutation* perm = new Permutation(second, cities);
+		Permutation* perm = new Permutation(second, tours);
 
 		for(int i = 0; i < numGen; i++)
 		{
