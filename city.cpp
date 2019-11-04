@@ -65,7 +65,6 @@ City::City(int newCities, int newTours, double cities[][20])
 
 Tour* City::goOnTour(int citiesVisited, int visited[], double distance, Tour* current)
 {
-	int tempNum = numCities; //testing if just randomly using it works??
 	if(citiesVisited == 0)
 	{
 		for(int i = 0; i < numCities; i++)
@@ -80,8 +79,7 @@ Tour* City::goOnTour(int citiesVisited, int visited[], double distance, Tour* cu
 		for(int m = 0; m < numCities; m++)
 		{
 			bool cityHappened = false;
-			std::cout << visited[citiesVisited - 1] << " " << m << std::endl;
-			for(int n = 0; n < numTours; n++)
+			for(int n = 0; n < citiesVisited; n++)
 			{
 				if(visited[n] == m)
 				{
@@ -102,32 +100,12 @@ Tour* City::goOnTour(int citiesVisited, int visited[], double distance, Tour* cu
 		double tempDistance = distance + cityDistances[visited[citiesVisited - 1]][visited[0]];
 		if(tempDistance <= smallestTour)
 		{
-			/*if(smallestTour == 1000.0)
-			{
-				Tour tempTourA(distance, visited, numTours, cityDistances);
-				current = &tempTourA;
-				smallestTour = distance;
-			}*/
-
-			std::cout << distance << std::endl;
 			Tour tempTourB(distance, visited, numTours, cityDistances);
 			current = &tempTourB;
 			smallestTour = tempDistance;
 		}
 	}
 	return current;
-}
-
-void City::print(int visited[], double distance)
-{
-	std::cout << "City order: ";
-	for(int i = 0; i < numCities; i++)
-	{
-		std::cout << visited[i] << " ";
-	}
-	std::cout << visited[0];
-
-	std::cout << "\nDistance: " << distance << std::endl << std:: endl;
 }
 
 Tour* City::getBest()
